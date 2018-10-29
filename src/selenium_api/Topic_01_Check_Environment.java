@@ -18,7 +18,7 @@ public class Topic_01_Check_Environment {
 	@BeforeClass
 	public void beforeClass() {
 		// Khoi tao trinh duyet
-//		 driver = new FirefoxDriver();
+		// driver = new FirefoxDriver();
 		
 		//Chrome
 		

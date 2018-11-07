@@ -35,7 +35,6 @@ public class Topic_01_Check_Environment {
 		driver.get("http://live.guru99.com");
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void TC_01_CheckTitle() {
 		String homePageTitle = driver.getTitle();
@@ -43,7 +42,6 @@ public class Topic_01_Check_Environment {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void TC_02_CheckURL() {
 		String homePageURL = driver.getCurrentUrl();

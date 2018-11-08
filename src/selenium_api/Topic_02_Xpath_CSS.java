@@ -63,14 +63,14 @@ public class Topic_02_Xpath_CSS {
 	  driver.get("http://live.guru99.com/");
 	  
 //		  * Step 02 - Click vào link "My Account" để tới trang đăng nhập
-	  driver.findElement(By.xpath("//div[@class='footer']//a[contains(text(), 'My Account')]"));
+	  driver.findElement(By.xpath("//div[@class='footer']//a[contains(text(), 'My Account')]")).click();
 	  
 //		  * Step 03 - Để trống Username/ Password (using css locator)
 	  driver.findElement(By.cssSelector("*[id='email']")).sendKeys("");
 	  driver.findElement(By.cssSelector("*[id='pass']")).sendKeys("");
 	  	  
 //		  * Step 04 - Click Login button
-	  driver.findElement(By.xpath("//*[@class='button' AND @name='send']")).click();
+	  driver.findElement(By.xpath("//*[@class='button' and @name='send']")).click();
 	  
 //		  * Step 05 - Verify error message xuất hiện tại 2 field:  This is a required field.
 	  String ErrorMessEmail = driver.findElement(By.xpath("//div[@id='advice-required-entry-email']")).getText();
@@ -96,7 +96,7 @@ public class Topic_02_Xpath_CSS {
 	  driver.findElement(By.id("send2")).click();
 	  
 //		  * Step 05 - Verify error message xuất hiện:  Please enter a valid email address. For example johndoe@domain.com.
-	  String ErrorMessEmailInvalid = driver.findElement(By.xpath("//*[@id='advice-validate-email-email'")).getText();
+	  String ErrorMessEmailInvalid = driver.findElement(By.xpath("//div[@id='advice-validate-email-email']")).getText();
 	  Assert.assertEquals(ErrorMessEmailInvalid, "Please enter a valid email address. For example johndoe@domain.com.");
 	 
 	  
@@ -115,7 +115,7 @@ public class Topic_02_Xpath_CSS {
 	  driver.findElement(By.cssSelector("*[id='pass']")).sendKeys("123");
 	  
 //		  * Step 04 - Click Login button
-	  driver.findElement(By.xpath("//*[@class='button' AND @name='send']")).click();
+	  driver.findElement(By.xpath("//*[@class='button' and @name='send']")).click();
 	  
 //		  * Step 05 - Verify error message xuất hiện: Please enter 6 or more characters without leading or trailing spaces.
 	  String ErrMessValidatePass = driver.findElement(By.id("advice-validate-password-pass")).getText();
@@ -135,7 +135,7 @@ public class Topic_02_Xpath_CSS {
 	  driver.findElement(By.cssSelector("*[id='pass']")).sendKeys("123123123");
 	  
 //		  * Step 04 - Click Login button
-	  driver.findElement(By.xpath("//*[@class='button' AND @name='send']")).click();
+	  driver.findElement(By.xpath("//*[@class='button' and @name='send']")).click();
 	  
 //		  * Step 05 - Verify error message xuất hiện: Invalid login or password.
 	  String errMessInvalidPass = driver.findElement(By.xpath("//div[@class='account-login']//ul[contains(@class,'messages')]//span")).getText();

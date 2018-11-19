@@ -2,7 +2,7 @@ package selenium_api;
 
 import java.util.Random;
 
-public class RandomNumber {
+public class CommonClass {
 	
 	  public static int randomNumberForEmail() {
 			 Random random = new Random();

@@ -3,15 +3,22 @@ package selenium_api;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,6 +29,8 @@ public class Topic_04_DropdownList {
 
 	WebDriver driver;
 	WebDriverWait waitExplicit;
+	
+	 String showSelected1, showSelected2;
 
 	JavascriptExecutor javaExecutor;
 
@@ -31,10 +40,10 @@ public class Topic_04_DropdownList {
 	@BeforeClass
 	public void beforeClass() {
 
-		// driver = new FirefoxDriver();
-		System.setProperty("webdriver.chrome.driver",
-				"C:/Phuongcei/workspace/WEBDRIVE_API_07_PHUONGLT/lib/chromedriver.exe");
-		driver = new ChromeDriver();
+		 driver = new FirefoxDriver();
+//		System.setProperty("webdriver.chrome.driver",
+//				"C:/Phuongcei/workspace/WEBDRIVE_API_07_PHUONGLT/lib/chromedriver.exe");
+//		driver = new ChromeDriver();
 
 		// Wait elements are loaded
 		waitExplicit = new WebDriverWait(driver, 30);
@@ -148,8 +157,7 @@ public class Topic_04_DropdownList {
 
 		Thread.sleep(3000);
 	}
-
-	@Test
+	
 	public void TC_05_HandleCustomDropListVue() throws InterruptedException {
 		/* Go to Vue dropdown link
 		 * Select Third Option 
@@ -164,11 +172,79 @@ public class Topic_04_DropdownList {
 		String ExpectedItem = "Third Option";
 		
 		selectItemInDropdownList(xpathScrollElement, xpathParent, xpathElement, ExpectedItem);
-//		Assert.assertTrue(driver.findElement(By.xpath("//div[@id='app']//li[contains(text(), 'Third Option')]")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//div[@id='app']//li[contains(text(), 'Third Option')]")).isDisplayed());
 		
-//		Thread.sleep(7000);
+//		Thread.sleep(3000);
 	}
-
+	
+	public void TC_06_HandleCustomEditableDropList() {
+		
+		driver.get("http://indrimuska.github.io/jquery-editable-select/");
+		
+		driver.findElement(By.xpath("//div[@id='default-place']/input")).sendKeys("BMW");
+		driver.findElement(By.xpath("//div[@id='default-place']/input")).sendKeys(Keys.TAB);
+		
+		// Here we used .getAttribute to verify if 'BMW' is displayed, instead of .isDisplayed()
+		// The reason is that the 'BMW' is in in-visible (show only when clicking on droplist).
+		// => cannot use isDisplayed().
+		// But we know that if it is selected, that li will have class attribute value = es-visible selected (only es-visible if clicking, instead of sending key: TAB)
+		Assert.assertEquals(driver.findElement(By.xpath("//div[@id='default-place']//li[contains(text(), 'BMW')]")).getAttribute("class"), "es-visible selected");
+	
+	}
+	
+	@Test
+	public void TC_07_HandleMultipleSelect() throws InterruptedException {
+		/*
+		 * http://wenzhixin.net.cn/p/multiple-select/docs/
+		 * <4: show name selected 
+		 * >=4, <12: x of 12 selected
+		 * =12 or Select all :  -> show All selected and tick Select all  
+		 */
+		
+		driver.get("http://wenzhixin.net.cn/p/multiple-select/docs/");
+		
+		// scroll to //h3[@id='the-keep-open']
+		scrollToSelectItem("//h3[@id='the-keep-open']");
+		
+		// Click on parent droplist
+		Actions act = new Actions(driver);
+		act.click(driver.findElement(By.xpath("//*[@id='e21']/div/button")));
+		
+//		driver.findElement(By.xpath("//*[@id='e21']/div/button")).click();
+		Thread.sleep(2000);
+		
+		// xpath element in droplist: //p[@id='e21']//label
+		List <WebElement> elementList = driver.findElements(By.xpath("//p[@id='e21']//label/span"));
+		
+		// select 3 - May, August, October
+		
+		
+		for(WebElement optionValue : elementList) {
+			System.out.println("Option value: " + optionValue.getText());
+				String optionSelectValue = optionValue.getText();
+				if(optionSelectValue.equals("May") || optionSelectValue.equals("August") || optionSelectValue.equals("October")) {
+					optionValue.click();
+				}
+				 showSelected1 = driver.findElement(By.xpath("//p[@id='e21']/div/button/span")).getText();
+				
+				if(optionSelectValue.equals("December")) {
+					optionValue.click();
+				}
+				 showSelected2 = driver.findElement(By.xpath("//p[@id='e21']/div/button/span")).getText();
+				
+		}
+		
+		Assert.assertEquals(showSelected1, "May, August, October");
+		Assert.assertEquals(showSelected2, "4 of 12 selected");
+		
+		// Select 5
+		
+		Thread.sleep(5000);
+		
+		
+		
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
@@ -176,6 +252,7 @@ public class Topic_04_DropdownList {
 	}
 
 	public void selectItemInDropdownList(String xpathScrollElement, String xpathParent, String xpathElement, String ExpectedItem) {
+
 		// ===============
 //				xpathParent - là xpath cha = xpath của dropdrown list chứa các options 
 //				xpathElement - là xpath đại diện (general xpath) cho các options trong Element - tương đối 
@@ -215,4 +292,11 @@ public class Topic_04_DropdownList {
 
 	}
 
+	public void scrollToSelectItem(String xpathScrollToElement) {
+		
+		WebElement element = driver.findElement(By.xpath(xpathScrollToElement));
+	
+		javaExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
+		
+	}
 }

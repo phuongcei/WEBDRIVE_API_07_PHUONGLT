@@ -56,7 +56,6 @@ public class CommonClass {
 					}
 
 				}
-	
 		
 		public static void scrollToSelectItem(String xpathScrollToElement) {
 			WebDriver driver = new FirefoxDriver();

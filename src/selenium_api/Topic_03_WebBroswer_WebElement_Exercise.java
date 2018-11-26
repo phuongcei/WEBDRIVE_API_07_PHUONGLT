@@ -4,8 +4,6 @@ import org.testng.annotations.Test;
 
 import org.testng.annotations.BeforeClass;
 
-import static org.junit.Assert.assertFalse;
-
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -44,11 +42,11 @@ public class Topic_03_WebBroswer_WebElement_Exercise {
 
 	@Test
 	public void TC_01_CheckElementIsDisplayed() {
-//			Step 01 - Truy cập vào trang: https://daominhdam.github.io/basic-form/index.html
+//			Step 01 - Truy cáº­p vÃ o trang: https://daominhdam.github.io/basic-form/index.html
 		driver.get("https://daominhdam.github.io/basic-form/index.html");
 
-//			Step 02 - Kiểm tra các phần tử sau hiển thị trên trang: Email/ Age (Under 18)/ Education
-//			Step 03 - Nếu có nhập giá trị: Automation Testing vào 2 field Email/ Education và chọn Age = Under 18
+//			Step 02 - Kiá»ƒm tra cÃ¡c pháº§n tá»­ sau hiá»ƒn thá»‹ trÃªn trang: Email/ Age (Under 18)/ Education
+//			Step 03 - Náº¿u cÃ³ nháº­p giÃ¡ trá»‹: Automation Testing vÃ o 2 field Email/ Education vÃ  chá»�n Age = Under 18
 		if (CheckElementDisplayed(EmailByXpathId)) {
 			driver.findElement(EmailByXpathId).sendKeys("Automation Testing");
 		}
@@ -65,10 +63,10 @@ public class Topic_03_WebBroswer_WebElement_Exercise {
 
 	@Test
 	public void TC_02_CheckElementIsEnabledOrDisabled() {
-//			Step 01 - Truy cập vào trang: https://daominhdam.github.io/basic-form/index.html
+//			Step 01 - Truy cáº­p vÃ o trang: https://daominhdam.github.io/basic-form/index.html
 		driver.get("https://daominhdam.github.io/basic-form/index.html");
 
-//			Step 02 - Kiểm tra các phần tử sau enable trên trang: Email/ Age (Under 18)/ Education/ Job Role 01/ Interests (Development)/ Slider 01/ Button is enabled
+//			Step 02 - Kiá»ƒm tra cÃ¡c pháº§n tá»­ sau enable trÃªn trang: Email/ Age (Under 18)/ Education/ Job Role 01/ Interests (Development)/ Slider 01/ Button is enabled
 		Assert.assertTrue(driver.findElement(EmailByXpathId).isEnabled());
 		Assert.assertTrue(driver.findElement(Under18ByXpathId).isEnabled());
 		Assert.assertTrue(driver.findElement(EducationByXpathId).isEnabled());
@@ -77,7 +75,7 @@ public class Topic_03_WebBroswer_WebElement_Exercise {
 		Assert.assertTrue(driver.findElement(Slider01ByXpathId).isEnabled());
 		Assert.assertTrue(driver.findElement(ButtonEnabledByXpathId).isEnabled());
 
-//			Step 03 - Kiểm tra các phần tử sau disable trên trang: Password / Age (Radiobutton is disabled)/ Biography/ Job Role 02/ Interests (Checkbox is disabled)/ Slider 02/ Button is disabled
+//			Step 03 - Kiá»ƒm tra cÃ¡c pháº§n tá»­ sau disable trÃªn trang: Password / Age (Radiobutton is disabled)/ Biography/ Job Role 02/ Interests (Checkbox is disabled)/ Slider 02/ Button is disabled
 //			
 		Assert.assertFalse(driver.findElement(PassByXpathId).isEnabled());
 		Assert.assertFalse(driver.findElement(RadioAgeByXpathId).isEnabled());
@@ -87,7 +85,7 @@ public class Topic_03_WebBroswer_WebElement_Exercise {
 		Assert.assertFalse(driver.findElement(CheckboxDisByXpathId).isEnabled());
 		Assert.assertFalse(driver.findElement(ButtonDisByXpathId).isEnabled());
 		
-//			Step 04 - Nếu có in ra Element is enabled/ ngược lại Element is disabled
+//			Step 04 - Náº¿u cÃ³ in ra Element is enabled/ ngÆ°á»£c láº¡i Element is disabled
 		CheckElementEnabled(EmailByXpathId);
 		CheckElementEnabled(Under18ByXpathId);
 		CheckElementEnabled(EducationByXpathId);
@@ -106,15 +104,15 @@ public class Topic_03_WebBroswer_WebElement_Exercise {
 
 	@Test
 	public void TC_03_CheckElementIsSelected() {
-//			Step 01 - Truy cập vào trang: https://daominhdam.github.io/basic-form/index.html
+//			Step 01 - Truy cáº­p vÃ o trang: https://daominhdam.github.io/basic-form/index.html
 		driver.get("https://daominhdam.github.io/basic-form/index.html");
 		
-//			Step 02 - Click chọn Age (Under 18)/ Interests (Development)
+//			Step 02 - Click chá»�n Age (Under 18)/ Interests (Development)
 //		driver.findElement(Under18ByXpathId).click();
 		driver.findElement(DevelopmentByXpathId).click();
 		
-//			Step 03 - Kiểm tra các phần tử tại Step 02 đã được chọn
-//			Step 04 - Nếu chưa được chọn thì cho phép chọn lại 1 lần nữa
+//			Step 03 - Kiá»ƒm tra cÃ¡c pháº§n tá»­ táº¡i Step 02 Ä‘Ã£ Ä‘Æ°á»£c chá»�n
+//			Step 04 - Náº¿u chÆ°a Ä‘Æ°á»£c chá»�n thÃ¬ cho phÃ©p chá»�n láº¡i 1 láº§n ná»¯a
 		if(!CheckElementSelected(Under18ByXpathId)) {
 			driver.findElement(Under18ByXpathId).click();
 		} 

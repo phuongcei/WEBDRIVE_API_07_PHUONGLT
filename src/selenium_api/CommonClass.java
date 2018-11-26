@@ -22,10 +22,10 @@ public class CommonClass {
 	  	  
 		public static void selectItemInDropdownList(String xpathParent, String xpathElement, String ExpectedItem) {
 			//===============
-//					xpathParent - là xpath cha = xpath của dropdrown list chứa các options 
-//					xpathElement - là xpath đại diện (general xpath) cho các options trong Element - tương đối 
-//								không phải xpath tuyệt đối đến 1 option cụ thể nào.
-//					ExpectedItem - value của option mình muốn chọn.
+//					xpathParent - lÃ  xpath cha = xpath cá»§a dropdrown list chá»©a cÃ¡c options 
+//					xpathElement - lÃ  xpath Ä‘áº¡i diá»‡n (general xpath) cho cÃ¡c options trong Element - tÆ°Æ¡ng Ä‘á»‘i 
+//								khÃ´ng pháº£i xpath tuyá»‡t Ä‘á»‘i Ä‘áº¿n 1 option cá»¥ thá»ƒ nÃ o.
+//					ExpectedItem - value cá»§a option mÃ¬nh muá»‘n chá»�n.
 			//===============		
 
 					//Declare 
@@ -58,7 +58,7 @@ public class CommonClass {
 				}
 	
 		
-		public void scrollToSelectItem(String xpathScrollToElement) {
+		public static void scrollToSelectItem(String xpathScrollToElement) {
 			WebDriver driver = new FirefoxDriver();
 			
 			JavascriptExecutor javaExecutor;
@@ -68,5 +68,10 @@ public class CommonClass {
 		
 			javaExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
 			
+		}
+
+		public static void clickElementByJS(WebElement element, WebDriver driver) {
+			JavascriptExecutor je = (JavascriptExecutor) driver;
+			je.executeScript("arguments[0].click();", element);
 		}
 }

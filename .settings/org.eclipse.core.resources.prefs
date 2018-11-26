@@ -1,6 +1,9 @@
 eclipse.preferences.version=1
+encoding//src/selenium_api/CommonClass.java=UTF-8
 encoding//src/selenium_api/Topic_02_Xpath_CSS.java=UTF-8
+encoding//src/selenium_api/Topic_03_WebBroswer_WebElement_Exercise.java=UTF-8
 encoding//src/selenium_api/Topic_04_DropdownList.java=UTF-8
 encoding//src/selenium_api/Topic_04_Textbox_Textarea.java=UTF-8
+encoding//src/selenium_api/Topic_05_RadioButton_Checkbox_Alert.java=UTF-8
 encoding//src/selenium_api/Topic_06_UserInteractions.java=UTF-8
 encoding//src/selenium_api/Topic_XX_NameLesson.java=UTF-8

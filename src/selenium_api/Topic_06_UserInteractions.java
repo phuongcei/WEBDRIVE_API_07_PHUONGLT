@@ -25,6 +25,9 @@ public class Topic_06_UserInteractions {
 	public void beforeClass() {
 		driver = new FirefoxDriver ();
 		
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
 	}
 
 	@Test

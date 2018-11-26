@@ -38,7 +38,7 @@ public class Topic_02_Xpath_CSS {
 	 
 //		  * Step 03 - Click vào link "My Account" chuyển tới trang đăng nhập
 	  driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
-	  
+	  							
 //		  * Step 04 - Click CREATE AN ACCOUNT button để tới trang Đăng ký tài khoản
 	  driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
 	  

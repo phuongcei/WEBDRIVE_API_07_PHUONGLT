@@ -13,7 +13,9 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
@@ -23,7 +25,9 @@ public class Topic_06_UserInteractions {
 	
 	@BeforeClass
 	public void beforeClass() {
-		driver = new FirefoxDriver ();
+//		driver = new FirefoxDriver ();
+		System.setProperty("webdriver.chrome.driver", "C:/Phuongcei/workspace/WEBDRIVE_API_07_PHUONGLT/lib/chromedriver.exe");
+		driver = new ChromeDriver();
 		
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -31,8 +35,23 @@ public class Topic_06_UserInteractions {
 	}
 
 	@Test
-	public void TC_01_CheckXXX() {
+	public void TC_01_CheckXXX() throws InterruptedException {
+//			Step 01 - Truy cập vào trang: http://www.myntra.com/
+		driver.get("http://www.myntra.com/");
+		
+//			Step 02 - Hover chuột vào Menu để login
+		WebElement AccLogin = driver.findElement(By.xpath("//div[@class='desktop-userIconsContainer']"));
+		Actions action = new Actions(driver);
 
+		action.moveToElement(AccLogin).perform();
+		
+//			Step 03 - Chọn Login button
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//*[@id='desktop-header-cnt']//a[text()='login']")).click();
+		
+//			Step 04 - Verify Login form được hiển thị
+		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(),'Login to Myntra')]")).isDisplayed());
+		
 	}
 
 	@Test
@@ -46,7 +65,7 @@ public class Topic_06_UserInteractions {
 	}
 
 	
-	@Test
+	
     public void TC_07_Drag_Drop_HTML5_Xpath() throws AWTException, Exception {
 		driver.get("https://html5demos.com/drag/");
 
@@ -108,7 +127,7 @@ public class Topic_06_UserInteractions {
 	
 	@AfterClass
 	public void afterClass() {
-		
+		driver.quit();
 		
 	}
 

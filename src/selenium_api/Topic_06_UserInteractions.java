@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,17 +39,17 @@ public class Topic_06_UserInteractions {
 //			Step 01 - Truy cập vào trang: http://www.myntra.com/
 		driver.get("http://www.myntra.com/");
 
-//			Step 02 - Hover chuột vào Menu để login
+//			Step 02 - Hover chuột vào menu Account login
 		WebElement AccLogin = driver.findElement(By.xpath("//div[@class='desktop-userIconsContainer']"));
 		Actions action = new Actions(driver);
 
 		action.moveToElement(AccLogin).perform();
 
-//			Step 03 - Chọn Login button
+//			Step 03 - Click login button
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//*[@id='desktop-header-cnt']//a[text()='login']")).click();
 
-//			Step 04 - Verify Login form được hiển thị
+//			Step 04 - Verify Login form:
 		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(),'Login to Myntra')]")).isDisplayed());
 
 	}
@@ -60,7 +61,7 @@ public class Topic_06_UserInteractions {
 
 		driver.get("http://jqueryui.com/resources/demos/selectable/display-grid.html");
 
-//		Step 02 - Click and hold từ 1-> 4
+//		Step 02 - Click and hold tá»« 1-> 4
 		
 		Actions action = new Actions(driver);
 
@@ -70,25 +71,43 @@ public class Topic_06_UserInteractions {
 		action.release().perform();
 		Thread.sleep(3000);
 		
-//		Step 03 - Sau khi chọn kiểm tra rằng có đúng 4 phần tử đã được chọn thành công với xpath:
+//		Step 03 - Sau khi chọn kiểm tra 4 phần tử được chọn với xpath
 //		//li[@class='ui-state-default ui-selectee ui-selected']
 		
 		List <WebElement> selectedCells = driver.findElements(By.xpath("//li[@class='ui-state-default ui-selectee ui-selected']"));
 		
 		Assert.assertEquals(selectedCells.size(), 4);
 		
-//		Cách khác: Kết hợp nhiều actions trong 1 câu lệnh.
+//		Cách khác: kết hợp nhiều actions trong 1 câu lệnh
 //		List <WebElement> numberRange = driver.findElements(By.xpath("//ol[@id='selectable']/li"));
 //		action.clickAndHold(numberRange.get(0)).moveToElement(numberRange.get(3)).release().perform();
 		
 	}
 
 	@Test
-	public void TC_03_SelectRandomNumber() {
+	public void TC_03_SelectRandomNumber() throws Exception {
 		/* Select 6 random number 
 		 * Report value
 		 * Verify there are 6 selected.
 		 */
+		
+		driver.get("http://jqueryui.com/resources/demos/selectable/display-grid.html");
+
+		List <WebElement> cells = driver.findElements(By.xpath("//ol[@id='selectable']/li"));
+			
+		Actions action = new Actions(driver);
+		
+		action.click(cells.get(0)).perform();
+		
+		action.sendKeys(cells.get(0), Keys.CONTROL).click(cells.get(5)).click(cells.get(9)).perform();
+		
+		Thread.sleep(2000);
+		
+		List <WebElement> selectedCells = driver.findElements(By.xpath("//li[@class='ui-state-default ui-selectee ui-selected']"));
+		
+		Assert.assertEquals(selectedCells.size(), 3);
+		
+		
 	}
 	
 	
@@ -103,7 +122,7 @@ public class Topic_06_UserInteractions {
 		
 		action.doubleClick(DoubleClick).perform();
 		
-//		Step 03 - Verify text trong alert được hiển thị: 'The Button was double-clicked.'
+//		Step 03 - Verify text trong alert ‹: 'The Button was double-clicked.'
 		Alert alert = driver.switchTo().alert();
 		
 		Assert.assertEquals(alert.getText(), "The Button was double-clicked.");
@@ -114,6 +133,37 @@ public class Topic_06_UserInteractions {
 		Thread.sleep(2000);
 	}
 
+	
+	
+	@Test
+	public void TC_05_RightClick() {
+//		Step 01 - Truy cập vào trang: http://swisnl.github.io/jQuery-contextMenu/demo.html
+		driver.get("http://swisnl.github.io/jQuery-contextMenu/demo.html");
+		
+//		Step 02 - Right click vào element: right click me
+		Actions action = new Actions(driver);
+		
+		action.contextClick(driver.findElement(By.xpath("//span[text()='right click me']"))).perform();
+		
+//		Step 03 - Hover chuột vào element: Quit
+		
+		
+//		Step 04 - Verify element Quit (visible + hover) với xpath:
+//		//li[contains(@class,'context-menu-visible') and contains(@class,'context-menu-hover')]/span[text()='Quit']
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void TC_07_Drag_Drop_HTML5_Xpath() throws AWTException, Exception {
 		driver.get("https://html5demos.com/drag/");
 
